@@ -51,7 +51,7 @@ Visit here : [https://chandani-beyondchat-articleenhancer.netlify.app/](https://
    ```
 
 3. For development, set the environment variable (optional, defaults to production):
-  # In client/.env.local
+   In client/.env.local
    ```bash
    VITE_ENV=/dev
    ```
@@ -77,13 +77,13 @@ User → Frontend → Backend (Scrape BeyondChats Articles) → Store Raw Articl
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │   Frontend      │    │   Backend       │    │   External      │
-│   (React)       │◄──►│   (Express.js)  │◄──►│   Services      │
+│   (React)       │◄──►│   (Express.js)  │◄──►│   Services      │◄──►
 │                 │    │                 │    │                 │
 │ - Article Cards │    │ - API Routes    │    │ - BeyondChats   │
 │ - Preview       │    │ - Scraping      │    │   Website       │
 │ - AI Refinement │    │ - AI Processing │    │ - Gemini AI     │
-└─────────────────┘    └─────────────────┘    │ - SerpAPI       │
-                                              └─────────────────┘
+└─────────────────┘    └─────────────────┘    └─────────────────┘  
+                                              
 ┌─────────────────┐
 │   Database      │
 │   (Firestore)   │
@@ -119,7 +119,7 @@ Response:    Returns a JSON object containing:
 
 Description: Updates Database with AI content.
 Action:      Matches the article in Firestore using the 'link'.
-Result:      Overwrites raw data with AI-refined content.
+Result:      Stored refined content With extra attribute by reserving raw data.
 Flag:        Sets { isRefined: true } upon success.
 
 
