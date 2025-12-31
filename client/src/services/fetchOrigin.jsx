@@ -1,4 +1,4 @@
-const getServerOrigin = () => {
+const fetchOrigin = () => {
   const env = import.meta.env.VITE_ENV; 
    if(env=='/dev'){
     return 'http://localhost:3000';
@@ -7,4 +7,4 @@ const getServerOrigin = () => {
    }
 };
 
-export default getServerOrigin;
+export default fetchOrigin;
