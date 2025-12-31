@@ -3,6 +3,7 @@ import axios from "axios";
 import { marked } from "marked";
 import { Loader2 } from "lucide-react";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import fetchOrigin from "./services/fetchOrigin";
 
 import ArticleCard from "./ArticleCard";
@@ -35,27 +36,27 @@ const App = () => {
     loadArticles();
   }, []);
 
-   const handleSave = async () => {
-      if (!selectedArticle) return;
+  const handleSave = async () => {
+    if (!selectedArticle) return;
 
-      setSaving(true);
-      try {
-        const payload = {
-          link: selectedArticle.link, // Used as the unique identifier
-          updatedTitle: selectedArticle.title,
-          updatedContent: selectedArticle.content, // This is the HTML/Markdown string
-            references: selectedArticle.references,
-          };
-
-        await axios.post(`${fetchOrigin()}/save-refined`, payload);
-        toast.success("Article saved to Firestore!");
-      } catch (error) {
-        console.error("Save failed:", error);
-        toast.error("Failed to save article.");
-      } finally {
-        setSaving(false);
-        }
+    setSaving(true);
+    try {
+      const payload = {
+        link: selectedArticle.link, // Used as the unique identifier
+        updatedTitle: selectedArticle.title,
+        updatedContent: selectedArticle.content, // This is the HTML/Markdown string
+        references: selectedArticle.references,
       };
+
+      await axios.post(`${fetchOrigin()}/save-refined`, payload);
+      toast.success("Article saved to Firestore!");
+    } catch (error) {
+      console.error("Save failed:", error);
+      toast.error("Failed to save article.");
+    } finally {
+      setSaving(false);
+    }
+  };
 
 
   const handleRefine = async (article) => {
@@ -113,10 +114,16 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-slate-100 p-6">
-      <ToastContainer />
+      <ToastContainer
+        autoClose={6000}
+        hideProgressBar={true}
+        closeOnClick={false}
+        draggable={false}
+        pauseOnHover
+      />
 
       <h1 className="text-3xl font-bold mb-6">
-        AI Content Workspace
+        Beyond Chat AI Article Enhancer
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -141,7 +148,7 @@ const App = () => {
             article={selectedArticle}
             optimizing={!!refiningId}
             saving={saving}
-            onSave={() => {handleSave()}}
+            onSave={() => { handleSave() }}
           />
         </div>
       </div>
