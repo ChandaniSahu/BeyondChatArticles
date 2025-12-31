@@ -379,7 +379,7 @@ const App = () => {
           ))}
         </div>
 
-        <div className="md:col-span-2 bg-white rounded-xl h-[calc(100%-2100px)]">
+        <div className="md:col-span-2 bg-white rounded-xl ">
           <ArticlePreview
             article={selectedArticle}
             optimizing={!!refiningId}
