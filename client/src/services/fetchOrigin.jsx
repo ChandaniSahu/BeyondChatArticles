@@ -3,7 +3,7 @@ const fetchOrigin = () => {
    if(env=='/dev'){
     return 'http://localhost:3000';
    } else {
-    return 'https://chandani-articles.vercel.app';
+    return 'https://beyond-chat-articles.vercel.app';
    }
 };
 

@@ -5,13 +5,25 @@ const admin = require('firebase-admin');
 const cors = require('cors');
 const TurndownService = require('turndown');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+
 require('dotenv').config();
 
 const app = express();
 app.use(cors())
 app.use(express.json());
 
+// Settings > Service Accounts > Generate New Private Key
+const serviceAccount = {
+  projectId: process.env.FB_PROJECT_ID,
+  privateKey: process.env.FB_PRIVATE_KEY.replace(/\\n/g, '\n'),
+  clientEmail: process.env.FB_CLIENT_EMAIL,
+};
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
 const getDocId = (link) => Buffer.from(link).toString('base64').replace(/[/+=]/g, '_').substring(0, 50);
 
 // 2. Turndown Service configuration
